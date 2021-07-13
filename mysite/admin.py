@@ -14,6 +14,6 @@ class CountryAdmin(admin.ModelAdmin):
 admin.site.register(Country, CountryAdmin)
 
 class CityAdmin(admin.ModelAdmin):
-    list_display = ('name', 'population', 'country')
+    list_display = ('name', 'country', 'population')
 
 admin.site.register(City, CityAdmin)

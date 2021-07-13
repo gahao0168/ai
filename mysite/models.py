@@ -18,7 +18,7 @@ class Country(models.Model):
 
 class City(models.Model):
 	name = models.CharField(max_length=50)
-	population = models.IntegerField()
 	country = models.ForeignKey(Country, on_delete=models.CASCADE)
+	population = models.IntegerField()
 	def __str__(self):
-		return name
+		return self.name
