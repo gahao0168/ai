@@ -14,3 +14,6 @@ def index(request):
 def news(request):
 	posts = Post.objects.all()
 	return render(request, "news.html", locals())
+
+def show(request):
+	return render(request, "show.html", locals())
