@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 import random
+from mysite.models import Post
 
 # Create your views here.
 def index(request):
@@ -9,3 +10,7 @@ def index(request):
 	special = lotto[0]
 	lotto = lotto[1:6]
 	return render(request, "index.html", locals())
+
+def news(request):
+	posts = Post.objects.all()
+	return render(request, "news.html", locals())
