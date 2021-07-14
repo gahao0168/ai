@@ -18,6 +18,7 @@ from django.urls import path
 from mysite import views
 
 urlpatterns = [
+    path('chart/', views.chart),
     path('rank/', views.rank),
     path('show/<int:id>/', views.show),
     path('news/', views.news),

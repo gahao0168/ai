@@ -6,5 +6,8 @@
 	<hr>
 	本期的樂透爹斯唷 <br>
 	特別號：{{ special }} <br>
-	一般號：{{ lotto }}
+	一般號：{{ lotto }} <br>
+	{% autoescape off %}
+  {{ plot_div }}
+  {% endautoescape %}
 {% endblock %}
