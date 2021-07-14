@@ -17,8 +17,6 @@ countries = zip(country_id, country_name)
 for country in countries:
 	temp = Country(name=country[1], country_id=country[0])
 	temp.save()
-	print(country)
 
 countries = Country.objects.all()
-print(countries)
 print("Done!")

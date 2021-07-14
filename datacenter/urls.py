@@ -18,6 +18,7 @@ from django.urls import path
 from mysite import views
 
 urlpatterns = [
+    path('rank/', views.rank),
     path('show/<int:id>/', views.show),
     path('news/', views.news),
     path('',views.index),
