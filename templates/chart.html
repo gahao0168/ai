@@ -5,6 +5,7 @@
 {% block main %}
 	<hr>
 	<form action="/chart/" method="POST">
+		國家選擇：
 		<select name="id">
 			<option value="default">請選擇一個國家</option>
 			{% for country in countries %}
@@ -14,7 +15,7 @@
 		{% csrf_token %}
 		<input type="submit" value="送出">
 	</form>
-	<canvas id="myChart" width="400" height="150"></canvas>
+	<canvas id="myChart" width="400" height="200"></canvas>
 	<script>
 	var ctx = document.getElementById('myChart').getContext('2d');
 	var myChart = new Chart(ctx, {

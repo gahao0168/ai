@@ -5,6 +5,7 @@
 {% block main %}
 	<hr>
 	<form action="/rank/" method="POST">
+		國家選擇：
 		<select name="id">
 			<option value="default">請選擇一個國家</option>
 			{% for country in countries %}

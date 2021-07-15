@@ -18,6 +18,8 @@ from django.urls import path
 from mysite import views
 
 urlpatterns = [
+    path('delete/<int:id>/', views.delete),
+    path('logout/', views.mylogout),
     path('chart/', views.chart),
     path('rank/', views.rank),
     path('show/<int:id>/', views.show),
