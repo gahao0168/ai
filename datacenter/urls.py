@@ -19,6 +19,8 @@ from mysite import views
 
 urlpatterns = [
     path('delete/<int:id>/', views.delete),
+    path('update/<str:pk>/', views.update, name='Update'),
+    path('deleteF/<str:pk>/', views.deleteF, name='Delete'),
     path('register/', views.sign_up, name='Register'),
     path('login/', views.sign_in, name='Login'),
     path('logout/', views.mylogout, name='Logout'),
@@ -26,6 +28,6 @@ urlpatterns = [
     path('rank/', views.rank),
     path('show/<int:id>/', views.show),
     path('news/', views.news),
-    path('',views.index),
+    path('',views.index, name='Index'),
     path('admin/', admin.site.urls),
 ]

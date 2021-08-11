@@ -3,8 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
-from mysite.models import Post, Country, City
-from mysite.forms import RegisterForm, LoginForm
+from mysite.models import Post, Country, City, Func
+from mysite.forms import RegisterForm, LoginForm, FunctionForm
 from plotly.offline import plot
 import random
 import plotly.graph_objs as go
@@ -12,21 +12,36 @@ import numpy as np
 
 # Create your views here.
 def index(request):
-	lotto = [random.randint(1,49) for i in range(6)]
-	special = lotto[0]
-	lotto = lotto[1:6]
-	x = np.linspace(0, 2*np.pi, 360)
-	y1 = np.sin(x)
-	y2 = np.cos(x)
-	plot_div = plot([
-		go.Scatter(x=x, y=y1,
-			mode='lines', name='SIN',
-			opacity=0.8, marker_color='green'),
-		go.Scatter(x=x, y=y2,
-			mode='lines', name='COS', 
-			opacity=0.8, marker_color='blue')
-		],output_type='div')
-	return render(request, "index.html", locals())
+	# lotto = [random.randint(1,49) for i in range(6)]
+	# special = lotto[0]
+	# lotto = lotto[1:6]
+	# x = np.linspace(0, 2*np.pi, 360)
+	# y1 = np.sin(x)
+	# y2 = np.cos(x)
+	# plot_div = plot([
+	# 	go.Scatter(x=x, y=y1,
+	# 		mode='lines', name='SIN',
+	# 		opacity=0.8, marker_color='green'),
+	# 	go.Scatter(x=x, y=y2,
+	# 		mode='lines', name='COS', 
+	# 		opacity=0.8, marker_color='blue')
+	# 	],output_type='div')
+	functions = Func.objects.all()
+
+	form = FunctionForm()
+
+	if request.method == "POST":
+		form = FunctionForm(request.POST)
+		if form.is_valid():
+			form.save()
+		return redirect("/")
+
+	context = {
+		'functions':functions,
+		'form':form
+	}
+
+	return render(request, "index.html", context)
 
 def news(request):
 	posts = Post.objects.all()
@@ -113,6 +128,33 @@ def sign_in(request):
         'form': form
     }
     return render(request, "login.html", context)
+
+def update(request, pk):
+   	function = Func.objects.get(id=pk)
+
+   	form = FunctionForm(instance=function)
+
+   	if request.method == "POST":
+   		form = FunctionForm(request.POST, instance=function)
+   		if form.is_valid():
+   			form.save()
+   		return redirect("/")
+   	context = {
+   		'form':form
+   	}
+   	return render(request, "update.html", context)
+
+def deleteF(request, pk):
+   	function = Func.objects.get(id=pk)
+
+   	if request.method == "POST":
+   		function.delete()
+   		return redirect('/')
+
+   	context = {
+   		'function':function
+   	}
+   	return render(request, "deleteF.html", context)
 
 def mylogout(request):
 	logout(request)

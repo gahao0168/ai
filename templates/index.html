@@ -4,39 +4,93 @@
 {% block headmessage %} Hao's website {% endblock %}
 {% block main %}
 	<hr>
+	<form action="" method="POST">
+		<table class="table table-bordered table-striped">
+			{% csrf_token %}
+			<thead class="thead-dark">
+	            <tr>
+	                <th><label>{{ form.name.label }}</label></th>
+	                <th><label>{{ form.content.label }}</label></th>
+	            </tr>
+	        </thead>
+			<tr>
+				<td>{{ form.name }}</td>
+				<td>{{ form.content }}</td>
+				<td><input type="submit" class="btn btn-success" value="新增至列表"></td>
+			</tr>
+		</table>
+	</form>
 	<br>
 	<table class="table table-bordered table-striped">
         <thead class="thead-dark">
             <tr>
                 <th>現有功能</th>
                 <th>功能內容</th>
-                <th></th>
+                <th>管理</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
+        	{% for function in functions %}
+	            <tr>
+			        <td>{{ function.name }}</td>
+			        <td>{{ function.content }}</td>
+			        <td>
+					    <a href="{% url 'Update' function.id %}" class="btn btn-info">修改</a>
+					    <a href="{% url 'Delete' function.id %}" class="btn btn-danger">刪除</a>
+			        </td>
+			    </tr>
+	        {% endfor %}
+            <!-- <tr>
                 <td>何老師教材網</td>
                 <td>連結到老師網站</td>
-                <td></td>
+                <td>
+                    <a href="#" class="btn btn-info">修改</a>
+                    <a href="#" class="btn btn-danger">刪除</a>
+                </td>
             </tr>
             <tr>
             	<td>我的練習</td>
             	<td>新聞摘要、城市人口排行、人口統計圖表以及管理後台</td>
-            	<td></td>
+            	<td>
+                    <a href="#" class="btn btn-info">修改</a>
+                    <a href="#" class="btn btn-danger">刪除</a>
+                </td>
             </tr>
             <tr>
                 <td>寵寵欲動(專題)</td>
                 <td>查看設定(尚未完成)、關於產品(尚未完成)</td>
-                <td></td>
+                <td>
+                    <a href="#" class="btn btn-info">修改</a>
+                    <a href="#" class="btn btn-danger">刪除</a>
+                </td>
             </tr>
             <tr>
                 <td>系統功能</td>
                 <td>註冊、登入、登出、回首頁</td>
-                <td></td>
-            </tr>
+                <td>
+                    <a href="#" class="btn btn-info">修改</a>
+                    <a href="#" class="btn btn-danger">刪除</a>
+                </td>
+            </tr> -->
         </tbody>
     </table>
-	<br>
+	<br>	
+	<!-- <form action="" method="POST">
+        {% csrf_token %}
+        <div class="form-row">
+	        <div class="form-group col-md-2">
+	            <label>{{ form.name.label }}</label>
+				{{ form.name }}
+	        </div>
+	        <div class="form-group col-md-4">
+	           	<label>{{ form.content.label }}</label>
+	            {{ form.content }}
+	       	</div>
+	        <div class="form-group col-md-2">
+	            <input type="submit" class="btn btn-success" style="margin-top:30px;" value="新增至列表">
+	        </div>
+	    </div>
+    </form> -->
 	<!-- 樂透
 	本期的樂透爹斯唷 <br>
 	特別號：{{ special }} <br>

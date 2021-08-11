@@ -31,3 +31,7 @@ class Note(models.Model):
 	pub_date = models.DateTimeField(default=timezone.now)
 	def __str__(self):
 		return self.title
+
+class Func(models.Model):
+    name = models.CharField(max_length=255)    # 功能名稱
+    content = models.CharField(max_length=255) # 功能內容
