@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from django.contrib.auth import logout
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from mysite.models import Post, Country, City
-from mysite.forms import RegisterForm
+from mysite.forms import RegisterForm, LoginForm
 from plotly.offline import plot
 import random
 import plotly.graph_objs as go
@@ -40,7 +40,7 @@ def delete(request, id):
 		return redirect("/news/")
 	return redirect("/news/")
 
-@login_required(login_url="/admin/login/")
+@login_required(login_url="/login/")
 def show(request, id):
 	try:
 		post = Post.objects.get(id=id)
@@ -48,7 +48,7 @@ def show(request, id):
 		return redirect("/news/")
 	return render(request, "show.html", locals())
 
-@login_required(login_url="/admin/login/")
+@login_required(login_url="/login/")
 def rank(request):
 	if request.method == 'POST':
 		id = request.POST['id']
@@ -64,7 +64,7 @@ def rank(request):
 	countries = Country.objects.all()
 	return render(request, "rank.html", locals())
 
-@login_required(login_url="/admin/login/")
+@login_required(login_url="/login/")
 def chart(request):
 	if request.method == 'POST':
 		id = request.POST['id']
@@ -82,23 +82,38 @@ def chart(request):
 	population = [city.population for city in cities]
 	return render(request, "chart.html", locals())
 
-# @login_required(login_url="/admin/login/")
+# @login_required(login_url="/login/")
 # def set(request):
 # 	return render(request, "set.html", locals())
 
-#註冊
+# 註冊
 def sign_up(request):
     form = RegisterForm()
     if request.method == "POST":
         form = RegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("/admin/login/")  #重新導向到登入畫面
+            return redirect("/login/")  #重新導向到登入畫面
     context = {
         'form': form
     }
     return render(request, "register.html", context)
 
+# 登入
+def sign_in(request):
+    form = LoginForm()
+    if request.method == "POST":
+	    username = request.POST.get("username")
+	    password = request.POST.get("password")
+	    user = authenticate(request, username=username, password=password)
+	    if user is not None:
+	        login(request, user)
+	        return redirect('/')  #重新導向到首頁
+    context = {
+        'form': form
+    }
+    return render(request, "login.html", context)
+
 def mylogout(request):
 	logout(request)
-	return redirect("/")
+	return redirect("/login/")

@@ -46,11 +46,11 @@
         </li>
         {% if request.user.is_authenticated %}
           <li class="nav-item">
-            <a class="nav-link" href="/logout/" tabindex="-1">登出</a>
+              <a class="btn btn-lg btn-primary" href="{% url 'Logout' %}" role="button">登出 &#187;</a>
           </li>
         {% else %}
           <li class="nav-item">
-            <a class="nav-link" href="/admin/login/?next=/" tabindex="-1">登入==</a>
+            <a class="nav-link" href="/login/" tabindex="-1">登入</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/register/">註冊</a>

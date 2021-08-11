@@ -4,6 +4,9 @@
 {% block headmessage %} 我的新聞摘要 {% endblock %}
 {% block main %}
 	<hr>
+	{% if not request.user.is_authenticated %}
+      登入才可以看摘要唷~
+    {% endif %}
 	<table class="table table-striped">
 		<tr>
 			<td>編號</td>

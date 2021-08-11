@@ -19,8 +19,9 @@ from mysite import views
 
 urlpatterns = [
     path('delete/<int:id>/', views.delete),
-    path('logout/', views.mylogout),
     path('register/', views.sign_up, name='Register'),
+    path('login/', views.sign_in, name='Login'),
+    path('logout/', views.mylogout, name='Logout'),
     path('chart/', views.chart),
     path('rank/', views.rank),
     path('show/<int:id>/', views.show),
