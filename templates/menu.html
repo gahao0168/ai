@@ -31,16 +31,31 @@
               <li><a class="dropdown-item" href="/admin/">管理後臺</a></li>
             {% endif %}
           </ul>
-          {% if request.user.is_authenticated %}
-            <li class="nav-item">
-              <a class="nav-link" href="/logout/" tabindex="-1">登出</a>
-            </li>
-          {% else %}
-            <li class="nav-item">
-              <a class="nav-link" href="/admin/login/?next=/" tabindex="-1">登入==</a>
-            </li>
-          {% endif %}
         </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            寵寵欲動
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            {% if request.user.is_authenticated %}
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/set/">查看設定(未完)</a></li>
+            {% endif %}
+            <li><a class="dropdown-item" href="/about/">關於產品(未完)</a></li>
+          </ul>
+        </li>
+        {% if request.user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="/logout/" tabindex="-1">登出</a>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/login/?next=/" tabindex="-1">登入==</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/register/">註冊</a>
+          </li>
+        {% endif %}
       </ul>
       <form class="d-flex">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

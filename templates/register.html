@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %} Gahao's Website {% endblock %}
+{% block headmessage %} Hao's website {% endblock %}
+{% block main %}
+    <hr>
+    <h1>註冊</h1>
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form }}<br>
+
+        <input class="btn btn-success" type="submit" value="註冊">
+    </form>
+{% endblock %}

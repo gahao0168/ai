@@ -20,6 +20,7 @@ from mysite import views
 urlpatterns = [
     path('delete/<int:id>/', views.delete),
     path('logout/', views.mylogout),
+    path('register/', views.sign_up, name='Register'),
     path('chart/', views.chart),
     path('rank/', views.rank),
     path('show/<int:id>/', views.show),
