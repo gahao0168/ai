@@ -15,9 +15,9 @@
 		            </tr>
 		        </thead>
 				<tr>
-					<td>{{ form.name }}</td>
-					<td>{{ form.content }}</td>
-					<td><input type="submit" class="btn btn-success" value="新增至列表"></td>
+					<td Width="200">{{ form.name }}</td>
+					<td Width="400">{{ form.content }}</td>
+					<td Width="100"><input type="submit" class="btn btn-success" value="新增至列表"></td>
 				</tr>
 			</table>
 		</form>
@@ -36,10 +36,10 @@
         <tbody>
         	{% for function in functions %}
 	            <tr>
-			        <td>{{ function.name }}</td>
-			        <td>{{ function.content }}</td>
+			        <td Width="100">{{ function.name }}</td>
+			        <td Width="200">{{ function.content }}</td>
 			        {% if request.user.is_superuser %}
-				        <td>
+				        <td Width="50">
 						    <a href="{% url 'UpdateTF' function.id %}" class="btn btn-info">修改</a>
 						    <a href="{% url 'DeleteTF' function.id %}" class="btn btn-danger">刪除</a>
 				        </td>
