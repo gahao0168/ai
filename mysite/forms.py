@@ -4,6 +4,14 @@ from django.contrib.auth.models import User
 from mysite.models import Func, TTYDFunc
 
 class RegisterForm(UserCreationForm):
+    last_name = forms.CharField(
+        label="姓",
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    first_name = forms.CharField(
+        label="名",
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
     username = forms.CharField(
         label="帳號",
         widget=forms.TextInput(attrs={'class': 'form-control'})
@@ -22,7 +30,7 @@ class RegisterForm(UserCreationForm):
     )
     class Meta:
         model = User
-        fields = ('username', 'email', 'password1', 'password2')
+        fields = ('last_name', 'first_name', 'username', 'email', 'password1', 'password2')
 
 class LoginForm(forms.Form):
     username = forms.CharField(
