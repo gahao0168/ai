@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
-from mysite.models import Post, Country, City, Func
+from mysite.models import Post, Country, City, Func, TTYDFunc
 from mysite.forms import RegisterForm, LoginForm, FunctionForm, TTYDFunctionForm
 
 # Create your views here.
@@ -78,10 +78,6 @@ def chart(request):
 	population = [city.population for city in cities]
 	return render(request, "chart.html", locals())
 
-# @login_required(login_url="/login/")
-# def set(request):
-# 	return render(request, "set.html", locals())
-
 # 註冊
 def sign_up(request):
     form = RegisterForm()
@@ -110,7 +106,11 @@ def sign_in(request):
     }
     return render(request, "login.html", context)
 
-def update(request, pk):
+def mylogout(request):
+	logout(request)
+	return redirect("/login/")
+
+def updateF(request, pk):
    	function = Func.objects.get(id=pk)
 
    	form = FunctionForm(instance=function)
@@ -123,7 +123,7 @@ def update(request, pk):
    	context = {
    		'form':form
    	}
-   	return render(request, "update.html", context)
+   	return render(request, "updateF.html", context)
 
 def deleteF(request, pk):
    	function = Func.objects.get(id=pk)
@@ -136,10 +136,6 @@ def deleteF(request, pk):
    		'function':function
    	}
    	return render(request, "deleteF.html", context)
-
-def mylogout(request):
-	logout(request)
-	return redirect("/login/")
 
 def about(request):
 	ttydfunctions = TTYDFunc.objects.all()
@@ -157,3 +153,33 @@ def about(request):
 		'form':form
 	}
 	return render(request, "about.html", context)
+
+def deleteTF(request, pk):
+   	ttydfunction = TTYDFunc.objects.get(id=pk)
+
+   	if request.method == "POST":
+   		ttydfunction.delete()
+   		return redirect('/about/')
+
+   	context = {
+   		'function':ttydfunction
+   	}
+   	return render(request, "deleteTF.html", context)
+
+def updateTF(request, pk):
+   	ttydfunction = TTYDFunc.objects.get(id=pk)
+
+   	form = TTYDFunctionForm(instance=ttydfunction)
+
+   	if request.method == "POST":
+   		form = TTYDFunctionForm(request.POST, instance=ttydfunction)
+   		if form.is_valid():
+   			form.save()
+   		return redirect("/about/")
+   	context = {
+   		'form':form
+   	}
+   	return render(request, "updateTF.html", context)
+
+def set(request):
+	return render(request, "set.html", locals())
