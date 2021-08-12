@@ -5,27 +5,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from mysite.models import Post, Country, City, Func
 from mysite.forms import RegisterForm, LoginForm, FunctionForm
-from plotly.offline import plot
-import random
-import plotly.graph_objs as go
-import numpy as np
 
 # Create your views here.
 def index(request):
-	# lotto = [random.randint(1,49) for i in range(6)]
-	# special = lotto[0]
-	# lotto = lotto[1:6]
-	# x = np.linspace(0, 2*np.pi, 360)
-	# y1 = np.sin(x)
-	# y2 = np.cos(x)
-	# plot_div = plot([
-	# 	go.Scatter(x=x, y=y1,
-	# 		mode='lines', name='SIN',
-	# 		opacity=0.8, marker_color='green'),
-	# 	go.Scatter(x=x, y=y2,
-	# 		mode='lines', name='COS', 
-	# 		opacity=0.8, marker_color='blue')
-	# 	],output_type='div')
 	functions = Func.objects.all()
 
 	form = FunctionForm()
@@ -40,7 +22,6 @@ def index(request):
 		'functions':functions,
 		'form':form
 	}
-
 	return render(request, "index.html", context)
 
 def news(request):

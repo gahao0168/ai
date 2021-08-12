@@ -37,11 +37,11 @@
             寵寵欲動
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="/about/">關於產品(未完)</a></li>
             {% if request.user.is_authenticated %}
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="/set/">查看設定(未完)</a></li>
             {% endif %}
-            <li><a class="dropdown-item" href="/about/">關於產品(未完)</a></li>
           </ul>
         </li>
         {% if request.user.is_authenticated %}
