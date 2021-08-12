@@ -26,7 +26,7 @@
             <li><a class="dropdown-item" href="/news/">新聞摘要</a></li>
             <li><a class="dropdown-item" href="/rank/">國際城市人口排行</a></li>
             <li><a class="dropdown-item" href="/chart/">人口統計圖表</a></li>
-            {% if request.user.is_authenticated %}
+            {% if request.user.is_superuser %}
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="/admin/">管理後臺</a></li>
             {% endif %}
