@@ -33,5 +33,5 @@ class Note(models.Model):
 		return self.title
 
 class Func(models.Model):
-    name = models.CharField(max_length=255)    # 功能名稱
-    content = models.CharField(max_length=255) # 功能內容
+    name = models.CharField(max_length=200)    # 功能名稱
+    content = models.TextField()			   # 功能內容
