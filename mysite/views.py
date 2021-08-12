@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from mysite.models import Post, Country, City, Func
-from mysite.forms import RegisterForm, LoginForm, FunctionForm
+from mysite.forms import RegisterForm, LoginForm, FunctionForm, TTYDFunctionForm
 
 # Create your views here.
 def index(request):
@@ -140,3 +140,20 @@ def deleteF(request, pk):
 def mylogout(request):
 	logout(request)
 	return redirect("/login/")
+
+def about(request):
+	ttydfunctions = TTYDFunc.objects.all()
+
+	form = TTYDFunctionForm()
+
+	if request.method == "POST":
+		form = TTYDFunctionForm(request.POST)
+		if form.is_valid():
+			form.save()
+		return redirect("/about/")
+
+	context = {
+		'functions':ttydfunctions,
+		'form':form
+	}
+	return render(request, "about.html", context)

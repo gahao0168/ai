@@ -35,3 +35,8 @@ class Note(models.Model):
 class Func(models.Model):
     name = models.CharField(max_length=100)    # 功能名稱
     content = models.TextField()			   # 功能內容
+
+# 寵寵欲動的功能
+class TTYDFunc(models.Model):
+    name = models.CharField(max_length=100)    # 功能名稱
+    content = models.TextField()			   # 功能內容

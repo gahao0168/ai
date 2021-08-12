@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %} Gahao's Website {% endblock %}
+{% block headmessage %} Hao's website {% endblock %}
+{% block main %}
+	<hr>
+	{% if request.user.is_superuser %}
+		<form action="" method="POST">
+			<table class="table table-bordered table-striped">
+				{% csrf_token %}
+				<thead class="thead-dark">
+		            <tr>
+		                <th><label>{{ form.name.label }}</label></th>
+		                <th><label>{{ form.content.label }}</label></th>
+		            </tr>
+		        </thead>
+				<tr>
+					<td>{{ form.name }}</td>
+					<td>{{ form.content }}</td>
+					<td><input type="submit" class="btn btn-success" value="新增至列表"></td>
+				</tr>
+			</table>
+		</form>
+	{% endif %}
+	<br>
+	<table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>現有功能</th>
+                <th>功能內容</th>
+                {% if request.user.is_superuser %}
+                	<th>管理</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+        	{% for function in functions %}
+	            <tr>
+			        <td>{{ function.name }}</td>
+			        <td>{{ function.content }}</td>
+			        {% if request.user.is_superuser %}
+				        <td>
+						    <a href="{% url 'Update' function.id %}" class="btn btn-info">修改</a>
+						    <a href="{% url 'Delete' function.id %}" class="btn btn-danger">刪除</a>
+				        </td>
+				    {% endif %}
+			    </tr>
+	        {% endfor %}
+        </tbody>
+    </table>
+	<br>
+{% endblock %}

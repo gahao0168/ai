@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from mysite.models import Func
+from mysite.models import Func, TTYDFunc
 
 class RegisterForm(UserCreationForm):
     username = forms.CharField(
@@ -38,6 +38,21 @@ class FunctionForm(forms.ModelForm):
 
     class Meta:
         model = Func
+        # fields = ('name', 'content')
+        fields = '__all__'
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'content': forms.TextInput(attrs={'class': 'form-control'})
+        }
+        labels = {
+            'name': '功能名稱',
+            'content':'功能內容'
+        }
+
+class TTYDFunctionForm(forms.ModelForm):
+
+    class Meta:
+        model = TTYDFunc
         # fields = ('name', 'content')
         fields = '__all__'
         widgets = {
