@@ -1,5 +1,5 @@
 from django.contrib import admin
-from mysite.models import Post, Country, City, Note, Func
+from mysite.models import Post, Country, City, Note, Func, TTYDFunc
 
 # Register your models here.
 
@@ -22,3 +22,7 @@ admin.site.register(Note, NoteAdmin)
 class FuncAdmin(admin.ModelAdmin):
     list_display = ('name', 'content')
 admin.site.register(Func, FuncAdmin)
+
+class TTYDFuncAdmin(admin.ModelAdmin):
+    list_display = ('name', 'content')
+admin.site.register(TTYDFunc, TTYDFuncAdmin)
