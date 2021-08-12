@@ -7,7 +7,9 @@
     <h1>登入</h1>
     <form action="" method="POST">
         {% csrf_token %}
-        {{ form }}
+        <div class="form-group col-md-2">
+            {{ form }}
+        </div>
         <br>
         <input class="btn btn-primary" type="submit" value="登入" /> <a class="btn btn-warning" href="{% url 'Index' %}">回首頁</a>
         <p>還沒有帳號嗎? <a href="{% url 'Register' %}">註冊</a></p>
