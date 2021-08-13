@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <a class="navbar-brand" href="#">
       {% if request.user.is_authenticated %}
-        <b>{{ request.user.first_name }}</b>
+        <font size="2">您好，</font><b>{{ request.user.first_name }}</b>
       {% else %}
         懶得登入的人
       {% endif %}

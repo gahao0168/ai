@@ -53,8 +53,8 @@ class FunctionForm(forms.ModelForm):
             'content': forms.TextInput(attrs={'class': 'form-control'})
         }
         labels = {
-            'name': '功能名稱',
-            'content':'功能內容'
+            'name': '欲新增的功能名稱',
+            'content':'欲新增的功能內容'
         }
 
 class TTYDFunctionForm(forms.ModelForm):
@@ -68,6 +68,6 @@ class TTYDFunctionForm(forms.ModelForm):
             'content': forms.TextInput(attrs={'class': 'form-control'})
         }
         labels = {
-            'name': '功能名稱',
-            'content':'功能內容'
+            'name': '欲新增的功能名稱',
+            'content':'欲新增的功能內容'
         }
