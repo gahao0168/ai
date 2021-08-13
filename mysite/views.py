@@ -182,4 +182,21 @@ def updateTF(request, pk):
    	return render(request, "updateTF.html", context)
 
 def set(request):
-	return render(request, "set.html", locals())
+	username = request.user.username
+	selected = list()
+	if request.method == "POST":
+		if request.POST.getlist('time') is not None:
+			selected = request.POST.getlist('time')
+			context = {
+				"times":range(24),
+				"selected":selected
+			}
+			return render(request, "set.html", context)
+		else:
+			selected = list()
+
+	context = {
+		"times":range(24),
+		"selected":selected
+	}
+	return render(request, "set.html", context)

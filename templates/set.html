@@ -8,17 +8,31 @@
     <center>
         <h1><b>：：：現在時間：：：</b></h1>
         <iframe scrolling="no" frameborder="no" clocktype="html5" style="overflow:hidden;border:0;margin:0;padding:0;width:240px;height:80px;"src="https://www.clocklink.com/html5embed.php?clock=043&timezone=Taiwan_Taipei&color=black&size=240&Title=&Message=&Target=&From=2021,1,1,0,0,0&Color=black"></iframe>
+        <br>
+        <a href="#" class="btn btn-warning">即刻餵食(警告：按下按鈕將會投放食物)</a><br>
     </center>
     <br>
     <br>
-    設定自動餵食時間：## label ##
-    <br>
-    <br>
-    <!-- <a href="/cmd?replay=on" class="btn btn-warning">即刻餵食(警告：按下按鈕將會投放食物)</a><br> -->
-    <a href="#" class="btn btn-warning">即刻餵食(警告：按下按鈕將會投放食物)</a><br>
-    <br>
-    <br>
-    <center>
-        <a href="#" class="btn btn-success">儲存</a> <a href="#" class="btn btn-primary">重設</a>
-    </center>
+    <form action="" method="POST">
+        {% csrf_token %}
+        設定自動餵食時間(最多選擇三項)：<br>
+        {% for time in times %}
+            <input type="checkbox" name="time" value={{ time }}:00> {{ time }}:00 
+            {% if time == 6 or time == 12 or time == 18 %}
+                <br>
+            {% endif %}
+        {% endfor %}
+        <br>
+        <br>
+        已儲存的時間有：
+        {% for select in selected %}
+            {{ select }}, 
+        {% endfor %}
+        <!-- <a href="/cmd?replay=on" class="btn btn-warning">即刻餵食(警告：按下按鈕將會投放食物)</a><br> -->
+        <br>
+        <br>
+        <center>
+            <input type="submit" class="btn btn-success" value="儲存"> <input type="reset" class="btn btn-primary" value="清除已選">
+        </center>
+    </form>
 {% endblock %}

@@ -3,6 +3,7 @@ from django.utils import timezone
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.contrib.postgres.fields import JSONField
 
 class Post(models.Model):
 	title = models.CharField(max_length=200)
@@ -40,3 +41,4 @@ class Func(models.Model):
 class TTYDFunc(models.Model):
     name = models.CharField(max_length=100)    # 功能名稱
     content = models.TextField()			   # 功能內容
+    feed_time = models.JSONField()
