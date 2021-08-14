@@ -15,7 +15,7 @@
     <br>
     <form action="" method="POST">
         {% csrf_token %}
-        設定自動餵食時間(最多選擇三項)：<br>
+        設定自動餵食時間(只記錄前三個選擇)：<br>
         {% for time in times %}
             <input type="checkbox" name="time" value={{ time }}> {{ time }}:00 
             {% if time == 6 or time == 12 or time == 18 %}
@@ -24,7 +24,7 @@
         {% endfor %}
         <br>
         <br>
-        目前選擇的時間是：
+        <b>{{ request.user.first_name }}</b> 記錄的時間為：
         {% for u in user %}
             {% if u.feed_time1 != None %}
                 {{ u.feed_time1 }}:00
@@ -36,13 +36,12 @@
                     {% endif %}
             {% endif %}
         {% endfor %}
-        <!-- <a href="/cmd?replay=on" class="btn btn-warning">即刻餵食(警告：按下按鈕將會投放食物)</a><br> -->
         <br>
         <br>
         <center>
-            <input type="submit" class="btn btn-success" value="紀錄目前選擇"> <input type="reset" class="btn btn-primary" value="清除已選">
+            <input type="submit" class="btn btn-success" value="記錄目前選擇"> <input type="reset" class="btn btn-primary" value="清除目前已選">
             <br>
-            <<<只會紀錄最新選擇>>>
+            <<<只會記錄最新選擇(前三項)>>>
         </center>
     </form>
 {% endblock %}

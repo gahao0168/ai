@@ -40,7 +40,7 @@ class TTYDFunc(models.Model):
 
 class FeedTime(models.Model):
 	username = models.CharField(max_length=50)
-	feed_time1 = models.IntegerField()
+	feed_time1 = models.IntegerField(null=True)
 	feed_time2 = models.IntegerField(null=True)
 	feed_time3 = models.IntegerField(null=True)
 	def __str__(self):

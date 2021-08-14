@@ -181,30 +181,33 @@ def updateTF(request, pk):
    	}
    	return render(request, "updateTF.html", context)
 
-# 防止重新登入後消失紀錄
-# 存進資料庫前，先確定無此帳號的其他資訊
 def set(request):
-	selected = list()
 	username = request.user.username
 	data = FeedTime()
+	user = FeedTime.objects.filter(username=username)
 	times = range(24)
-	if FeedTime.objects.filter(username=username) is not None:
-		user = FeedTime.objects.filter(username=username)
-		selected=user
+	selected = user
 	if request.method == "POST":
 		if request.POST.getlist('time') is not None:
 			selected = request.POST.getlist('time')
 
 			data.username = request.user.username
-			data.feed_time1 = selected[0]
 			try:
+				data.feed_time1 = selected[0]
 				data.feed_time2 = selected[1]
 				data.feed_time3 = selected[2]
 			except:
 				pass
-			user.delete()
-			data.save()
+
+			try:
+				# 存進資料庫前，先刪除該使用者以前的紀錄
+				user.delete() # 刪除上一筆
+				data.save()   # 記錄這一筆
+			except:
+				pass
+
 			return render(request, "set.html", locals())
 		else:
 			selected = list()
+
 	return render(request, "set.html", locals())
