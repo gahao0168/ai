@@ -83,9 +83,16 @@ def sign_up(request):
     form = RegisterForm()
     if request.method == "POST":
         form = RegisterForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("/login/")  #重新導向到登入畫面
+        if form.is_valid():	
+        	username = request.POST.get("username")
+	        data = FeedTime()
+	        user = FeedTime.objects.filter(username=username)
+	        selected = user
+	        data.username = request.POST.get("username")
+	        form.save()
+	        data.save()
+        	return redirect("/login/")  #重新導向到登入畫面
+
     context = {
         'form': form
     }

@@ -28,6 +28,8 @@
         {% for u in user %}
             {% if u.feed_time1 != None %}
                 {{ u.feed_time1 }}:00
+            {% else %}
+                尚未選擇
                 {% if u.feed_time2 != None %}
                     , {{ u.feed_time2 }}:00
                 {% endif %}
