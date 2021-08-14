@@ -17,7 +17,7 @@
         {% csrf_token %}
         設定自動餵食時間(最多選擇三項)：<br>
         {% for time in times %}
-            <input type="checkbox" name="time" value={{ time }}:00> {{ time }}:00 
+            <input type="checkbox" name="time" value={{ time }}> {{ time }}:00 
             {% if time == 6 or time == 12 or time == 18 %}
                 <br>
             {% endif %}
@@ -25,8 +25,16 @@
         <br>
         <br>
         目前選擇的時間是：
-        {% for select in selected %}
-            {{ select }}, 
+        {% for u in user %}
+            {% if u.feed_time1 != None %}
+                {{ u.feed_time1 }}:00
+                {% if u.feed_time2 != None %}
+                    , {{ u.feed_time2 }}:00
+                {% endif %}
+                    {% if u.feed_time3 != None %}
+                        , {{ u.feed_time3 }}:00
+                    {% endif %}
+            {% endif %}
         {% endfor %}
         <!-- <a href="/cmd?replay=on" class="btn btn-warning">即刻餵食(警告：按下按鈕將會投放食物)</a><br> -->
         <br>

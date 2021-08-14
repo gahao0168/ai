@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
-from mysite.models import Post, Country, City, Func, TTYDFunc
+from mysite.models import Post, Country, City, Func, TTYDFunc, FeedTime
 from mysite.forms import RegisterForm, LoginForm, FunctionForm, TTYDFunctionForm
 
 # Create your views here.
@@ -181,23 +181,30 @@ def updateTF(request, pk):
    	}
    	return render(request, "updateTF.html", context)
 
-# 需將selected寫進資料庫，防止重新登入後消失紀錄
+# 防止重新登入後消失紀錄
+# 存進資料庫前，先確定無此帳號的其他資訊
 def set(request):
-	username = request.user.username
 	selected = list()
+	username = request.user.username
+	data = FeedTime()
+	times = range(24)
+	if FeedTime.objects.filter(username=username) is not None:
+		user = FeedTime.objects.filter(username=username)
+		selected=user
 	if request.method == "POST":
 		if request.POST.getlist('time') is not None:
 			selected = request.POST.getlist('time')
-			context = {
-				"times":range(24),
-				"selected":selected
-			}
-			return render(request, "set.html", context)
+
+			data.username = request.user.username
+			data.feed_time1 = selected[0]
+			try:
+				data.feed_time2 = selected[1]
+				data.feed_time3 = selected[2]
+			except:
+				pass
+			user.delete()
+			data.save()
+			return render(request, "set.html", locals())
 		else:
 			selected = list()
-
-	context = {
-		"times":range(24),
-		"selected":selected
-	}
-	return render(request, "set.html", context)
+	return render(request, "set.html", locals())
