@@ -181,6 +181,7 @@ def updateTF(request, pk):
    	}
    	return render(request, "updateTF.html", context)
 
+# 需將selected寫進資料庫，防止重新登入後消失紀錄
 def set(request):
 	username = request.user.username
 	selected = list()
