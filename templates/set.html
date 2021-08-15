@@ -30,13 +30,13 @@
                 {{ u.feed_time1 }}:00
             {% else %}
                 尚未選擇
+            {% endif %}
                 {% if u.feed_time2 != None %}
                     , {{ u.feed_time2 }}:00
                 {% endif %}
                     {% if u.feed_time3 != None %}
                         , {{ u.feed_time3 }}:00
                     {% endif %}
-            {% endif %}
         {% endfor %}
         <br>
         <br>
