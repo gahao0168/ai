@@ -5,6 +5,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from mysite.models import Post, Country, City, Func, TTYDFunc, FeedTime
 from mysite.forms import RegisterForm, LoginForm, FunctionForm, TTYDFunctionForm
+# from django.contrib import messages
+
 
 # Create your views here.
 def index(request):
@@ -84,14 +86,21 @@ def sign_up(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)
         if form.is_valid():	
+        	form.save()
+        	# messages.success(request, 'Account created successfully')
+
         	username = request.POST.get("username")
 	        data = FeedTime()
 	        user = FeedTime.objects.filter(username=username)
 	        selected = user
-	        data.username = request.POST.get("username")
-	        form.save()
+	        data.username = username
 	        data.save()
-        	return redirect("/login/")  #重新導向到登入畫面
+
+	        username = form.cleaned_data.get('username')
+	        raw_password = form.cleaned_data.get('password1')
+	        user = authenticate(username=username, password=raw_password)
+	        login(request, user)  # 直接登入
+        	return redirect("/")  # 並重新導向到首頁
 
     context = {
         'form': form

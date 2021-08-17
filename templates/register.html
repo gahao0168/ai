@@ -7,7 +7,12 @@
     <h3>請填寫您的資料</h3>
     <form action="" method="POST">
         {% csrf_token %}
-        <div class="form-row">
+        
+        <table>
+            {{ form.as_table }}
+        </table>
+        
+        <!--<div class="form-row">
             <div class="form-group col-md-1">
                 <label>{{ form.last_name.label }}</label>
                 {{ form.last_name }}
@@ -26,7 +31,7 @@
                 <label>{{ form.email.label }}</label>
                 {{ form.email }}
             </div>
-        </div>
+        </div> -->
         <br>
         <input class="btn btn-success" type="submit" value="註冊">
     </form>

@@ -5,11 +5,11 @@ from mysite.models import Func, TTYDFunc
 
 class RegisterForm(UserCreationForm):
     last_name = forms.CharField(
-        label="姓",
+        label="姓氏",
         widget=forms.TextInput(attrs={'class': 'form-control'})
     )
     first_name = forms.CharField(
-        label="名",
+        label="名字",
         widget=forms.TextInput(attrs={'class': 'form-control'})
     )
     username = forms.CharField(
@@ -25,12 +25,12 @@ class RegisterForm(UserCreationForm):
         widget=forms.PasswordInput(attrs={'class': 'form-control'})
     )
     password2 = forms.CharField(
-        label="密碼確認",
+        label="確認密碼",
         widget=forms.PasswordInput(attrs={'class': 'form-control'})
     )
     class Meta:
         model = User
-        fields = ('last_name', 'first_name', 'username', 'email', 'password1', 'password2')
+        fields = ('username', 'last_name', 'first_name', 'email', 'password1', 'password2')
 
 class LoginForm(forms.Form):
     username = forms.CharField(
