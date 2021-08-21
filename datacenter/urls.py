@@ -14,35 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from mysite import views
 
 urlpatterns = [
-    # ----- 寵寵欲動的功能 -----
-    path('updateTF/<str:pk>/', views.updateTF, name='UpdateTF'),
-    path('deleteTF/<str:pk>/', views.deleteTF, name='DeleteTF'),
-    path('set/', views.set, name='Set'),
-    path('about/', views.about, name='About'),
-    # -------------------------
-
-    # ----- Index 的功能 -----
-    path('updateF/<str:pk>/', views.updateF, name='UpdateF'),
-    path('deleteF/<str:pk>/', views.deleteF, name='DeleteF'),
-    path('',views.index, name='Index'),
-    # ------------------------
-
-    # ----- 系統功能 -----
-    path('register/', views.sign_up, name='Register'),
-    path('login/', views.sign_in, name='Login'),
-    path('logout/', views.mylogout, name='Logout'),
     path('admin/', admin.site.urls),
-    # --------------------
-
-    # ----- 其他功能 -----
-    path('delete/<int:id>/', views.delete),
-    path('chart/', views.chart),
-    path('rank/', views.rank),
-    path('show/<int:id>/', views.show),
-    path('news/', views.news),
-    # --------------------
+    path('', include('mysite.urls')),
 ]
